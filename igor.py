@@ -26,6 +26,11 @@ async def help(ctx):
     await bot.say('iifeed - Покормить\niidrink - Побухать\niisleep - Поспать\niistat - Статы')
 
 @bot.command(pass_context=True)
+async def ap(ctx,*,kargs):
+    if ctx.message.author.id=='222079396675190785':
+        await bot.change_presence(game=discord.Game(name=str(kargs)))
+
+@bot.command(pass_context=True)
 async def feed(ctx):
     global fed, drunk, slep
     if fed <= 95:
@@ -58,6 +63,15 @@ async def sleep(ctx):
         await bot.say('Я бодр и готов бухать.')
 
 @bot.command(pass_context=True)
+async def max(ctx):
+    global slep, drunk, fed
+    if ctx.message.author.id == '222079396675190785':
+        drunk = 100
+        slep = 100
+        fed = 100
+        await bot.say('Тупо послушал Каспийский Груз и как огурчик стал.')
+
+@bot.command(pass_context=True)
 async def stat(ctx):
     global fed, drunk, slep
     await bot.say('Голод - '+str(fed)+'%\nБухлометр - '+str(drunk)+'%\nЭнергия - '+str(slep)+'%')
@@ -78,9 +92,9 @@ async def check():
     if slep < 25:
         await bot.send_message(obwaga,'Хочу спатц')
     if fed < 20 and drunk < 20 and slep < 20:
-        await asyncio.sleep(600)
+        await asyncio.sleep(1800)
     else:
-        await asyncio.sleep(60)
+        await asyncio.sleep(600)
     await check()
 
 bot.run(os.environ.get('TTK', None)) #commit die u stupid fuk >:(
